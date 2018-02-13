@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AutoScrollManager : MonoBehaviour {
+public class PlayerFiringManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
@@ -11,6 +11,9 @@ public class AutoScrollManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if (Input.GetButtonDown("Jump"))
+        {
+            print("Fire");
+        }
 	}
 }
