@@ -58,11 +58,6 @@ public class PlayerMovementManager : MonoBehaviour {
         }
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawCube(AABBsize.center, AABBsize.size);
-    }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.CompareTag("Floor"))

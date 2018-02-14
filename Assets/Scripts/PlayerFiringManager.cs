@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class PlayerFiringManager : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
+    public Transform firingPosition;
+
+
+    // Use this for initialization
+    void Start () {
 		
 	}
 	
@@ -14,6 +17,8 @@ public class PlayerFiringManager : MonoBehaviour {
 		if (Input.GetButtonDown("Jump"))
         {
             print("Fire");
+            PoolingManager.instance.GetCherry(firingPosition.position, transform, CherryManager.PLAYERTAG);
         }
+        
 	}
 }

@@ -4,16 +4,23 @@ using UnityEngine;
 
 public class PoolingManager : MonoBehaviour {
 
-    public static PoolingManager instace;
+#region singleton
+
+    public static PoolingManager instance;
 
     private void Awake()
     {
-        if (instace != null)
+        if (instance != null)
         {
             DestroyImmediate(this);
             Debug.LogError("TWO PoolingManagerS IN SCENE. SECOND OBJECT: " + gameObject.name);
         }
+        else
+        {
+            instance = this;
+        }
     }
+#endregion
 
     public HashSet<GameObject> pooledCherries = new HashSet<GameObject>();
     public HashSet<GameObject> pooledOtherSprites = new HashSet<GameObject>();
@@ -23,6 +30,8 @@ public class PoolingManager : MonoBehaviour {
 
     public float cherriesToPool;
     public float otherSpritesToPool;
+
+
 
     // Use this for initialization
     void Start() {
@@ -48,17 +57,17 @@ public class PoolingManager : MonoBehaviour {
         }
     }
 
-    void GetCherry(Vector3 _pos, Transform _parent, string itemName)
+    public void GetCherry(Vector3 _pos, Transform _parent, string itemName)
     {
 
         foreach (GameObject cherry in pooledCherries)
         {
             if (cherry.activeInHierarchy == true)
                 continue;
-            cherry.GetComponent<CherryManager>().Initialize(itemName);
             cherry.transform.parent = _parent;
             cherry.transform.position = _pos;
             cherry.SetActive(true);
+            cherry.GetComponent<CherryManager>().Initialize(itemName);
             break;
         }
         
