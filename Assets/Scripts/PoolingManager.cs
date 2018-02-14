@@ -24,12 +24,15 @@ public class PoolingManager : MonoBehaviour {
 
     public HashSet<GameObject> pooledCherries = new HashSet<GameObject>();
     public HashSet<GameObject> pooledOtherSprites = new HashSet<GameObject>();
+    public HashSet<GameObject> pooledRocks = new HashSet<GameObject>();
 
     public GameObject cherryPrefab;
     public GameObject otherSpritePrefab;
+    public GameObject rockPrefab;
 
     public float cherriesToPool;
     public float otherSpritesToPool;
+    public float rocksToPool = 5;
 
 
 
@@ -40,12 +43,21 @@ public class PoolingManager : MonoBehaviour {
             GameObject cherry = Instantiate(cherryPrefab);
             pooledCherries.Add(cherry);
             cherry.gameObject.SetActive(false);
+            print("cherry made");
+
         }
         for (int secondIndex = 0; secondIndex < otherSpritesToPool; secondIndex++)
         {
             GameObject other = Instantiate(otherSpritePrefab);
             pooledOtherSprites.Add(other);
             other.gameObject.SetActive(false);
+        }
+        for (int thirdIndex = 0; thirdIndex < rocksToPool; thirdIndex++)
+        {
+            GameObject rock = Instantiate(rockPrefab);
+            pooledRocks.Add(rock);
+            rock.gameObject.SetActive(false);
+            print("ROCK MADE");
         }
     }
 
@@ -59,7 +71,6 @@ public class PoolingManager : MonoBehaviour {
 
     public void GetCherry(Vector3 _pos, Transform _parent, string itemName)
     {
-
         foreach (GameObject cherry in pooledCherries)
         {
             if (cherry.activeInHierarchy == true)
@@ -70,6 +81,19 @@ public class PoolingManager : MonoBehaviour {
             cherry.GetComponent<CherryManager>().Initialize(itemName);
             break;
         }
-        
+    }
+
+    public void GetRock(Transform _parent)
+    {
+        foreach (GameObject rock in pooledRocks)
+        {
+            if (rock.activeInHierarchy == true)
+                continue;
+            rock.transform.position = _parent.position;
+            rock.transform.parent = _parent;
+            rock.SetActive(true);
+            rock.GetComponent<RockManager>().Initialize(GameManager.instance.currentStage);
+            break;
+        }
     }
 }
