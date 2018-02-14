@@ -17,8 +17,14 @@ public class SpawnerManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        
+
 		foreach(Transform rock in rocksToSpawn)
         {
+            if (rock == null)
+            {
+                continue;
+            }
             float dist = rock.position.x - cam.transform.position.x;
             if (dist <= distanceFromCam && dist >= -distanceFromCam && rock.GetComponentInChildren<RockManager>() == null)
             {
@@ -31,6 +37,10 @@ public class SpawnerManager : MonoBehaviour {
         }
         foreach(Transform other in othersToSpawn)
         {
+            if (other == null)
+            {
+                continue;
+            }
             float dist = other.position.x - cam.transform.position.x;
             if (dist <= distanceFromCam && dist >= -distanceFromCam && other.GetComponentInChildren<OtherManager>() == null)
             {

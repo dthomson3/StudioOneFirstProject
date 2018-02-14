@@ -8,13 +8,13 @@ public class PlayerMovementManager : MonoBehaviour {
     public float playerJumpSpeed;
     public float fallMultiplier;
     public bool hasJumped;
-    Rigidbody2D rb;
+    Rigidbody rb;
     public Bounds AABBsize;
     Vector3 offset;
 
 	// Use this for initialization
 	void Start () {
-        rb = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody>();
         offset = transform.parent.position - transform.position;
     }
 
@@ -34,7 +34,7 @@ public class PlayerMovementManager : MonoBehaviour {
     {
         if (hasJumped != true)
         {
-            rb.velocity = Vector2.up * playerJumpSpeed;
+            rb.velocity = Vector3.up * playerJumpSpeed;
             hasJumped = true;
         }
     }
@@ -43,7 +43,7 @@ public class PlayerMovementManager : MonoBehaviour {
     {
         if (rb.velocity.y < 0)
         {
-            rb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
+            rb.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
         }
     }
 
@@ -53,12 +53,16 @@ public class PlayerMovementManager : MonoBehaviour {
         transform.position += Vector3.right * inputX * Time.deltaTime * playerMoveSpeed;
         if (!AABBsize.Contains(transform.position))
         {
-        transform.position -= Vector3.right * inputX * Time.deltaTime * playerMoveSpeed;
-
+            transform.position -= Vector3.right * inputX * Time.deltaTime * playerMoveSpeed;
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnDrawGizmos()
+    {
+        
+    }
+
+    private void OnCollisionEnter(Collision collision)
     {
         if (collision.collider.CompareTag("Floor"))
         {

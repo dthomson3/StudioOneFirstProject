@@ -30,9 +30,36 @@ public class OtherManager : MonoBehaviour {
                 break;
         }
     }
-    
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        print("ded");
+        if (collision.transform.CompareTag("PlayerBullet"))
+        {
+            print("lele");
+        }
+        if (collision.collider.CompareTag(CherryManager.PLAYERBULLETTAG))
+        {
+            print("ye");
+            Die();
+        }
+    }
+
+    void Die()
+    {
+        //die animation etx
+        Despawn();
+        GameObject parent = transform.parent.gameObject;
+        transform.parent = null;
+        Destroy(parent);
+        print("3");
+
+
+    }
+
     public void Despawn()
     {
+        print("DEDEDEED");
         gameObject.SetActive(false);
     }
 }
