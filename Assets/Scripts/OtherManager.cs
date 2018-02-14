@@ -2,14 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RockManager : MonoBehaviour {
+public class OtherManager : MonoBehaviour {
 
-    public Sprite stageOneSprite;
-    public Sprite stageTwoSprite;
-    public Sprite stageThreeSprite;
-
-    // Use this for initialization
-    void Start () {
+	// Use this for initialization
+	void Start () {
 		
 	}
 	
@@ -20,7 +16,7 @@ public class RockManager : MonoBehaviour {
 
     public void Initialize(int _currentStage)
     {
-        print("ecks de");
+        print("initialized Other");
         switch (_currentStage)
         {
             case 1:
@@ -34,7 +30,7 @@ public class RockManager : MonoBehaviour {
                 break;
         }
     }
-
+    
     public void Despawn()
     {
         gameObject.SetActive(false);

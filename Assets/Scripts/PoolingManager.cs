@@ -96,4 +96,18 @@ public class PoolingManager : MonoBehaviour {
             break;
         }
     }
+
+    public void GetOther(Transform _parent)
+    {
+        foreach (GameObject other in pooledOtherSprites)
+        {
+            if (other.activeInHierarchy == true)
+                continue;
+            other.transform.position = _parent.position;
+            other.transform.parent = _parent;
+            other.SetActive(true);
+            other.GetComponent<OtherManager>().Initialize(GameManager.instance.currentStage);
+            break;
+        }
+    }
 }

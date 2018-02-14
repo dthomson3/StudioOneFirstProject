@@ -22,17 +22,23 @@ public class SpawnerManager : MonoBehaviour {
             float dist = rock.position.x - cam.transform.position.x;
             if (dist <= distanceFromCam && dist >= -distanceFromCam && rock.GetComponentInChildren<RockManager>() == null)
             {
-                print("AAAAAAAA");
                 PoolingManager.instance.GetRock(rock);
             }
             else if (dist <= -distanceFromCam && rock.GetComponentInChildren<RockManager>() != null)
             {
-                print("EEEEEEEEEEE");
                 rock.GetComponentInChildren<RockManager>().Despawn();
             }
-            else
+        }
+        foreach(Transform other in othersToSpawn)
+        {
+            float dist = other.position.x - cam.transform.position.x;
+            if (dist <= distanceFromCam && dist >= -distanceFromCam && other.GetComponentInChildren<OtherManager>() == null)
             {
-                print("WWWWWWWWWWWWWW");
+                PoolingManager.instance.GetOther(other);
+            }
+            else if (dist <= -distanceFromCam && other.GetComponentInChildren<OtherManager>() != null)
+            {
+                other.GetComponentInChildren<OtherManager>().Despawn();
             }
         }
 	}
