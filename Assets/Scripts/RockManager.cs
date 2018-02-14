@@ -8,19 +8,18 @@ public class RockManager : MonoBehaviour {
     public Sprite stageTwoSprite;
     public Sprite stageThreeSprite;
 
-    // Use this for initialization
     void Start () {
 		
 	}
-	
-	// Update is called once per frame
+
 	void Update () {
 		
 	}
 
     public void Initialize(int _currentStage)
     {
-        print("ecks de");
+        //changes sprite based off currentStage
+        print("Initialized");
         switch (_currentStage)
         {
             case 1:
@@ -37,6 +36,7 @@ public class RockManager : MonoBehaviour {
 
     public void Despawn()
     {
+        //disables object to be pooled again
         gameObject.SetActive(false);
     }
 }

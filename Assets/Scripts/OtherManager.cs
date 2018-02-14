@@ -4,18 +4,9 @@ using UnityEngine;
 
 public class OtherManager : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
     public void Initialize(int _currentStage)
     {
+        //switches sprite based on the current stage
         print("initialized Other");
         switch (_currentStage)
         {
@@ -33,7 +24,8 @@ public class OtherManager : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision)
     {
-        print("ded");
+        //checks for collision against bullets, if there is a collision, it tells itself to die
+        print("COLLIDED WITH: " + gameObject.name);
         if (collision.transform.CompareTag("PlayerBullet"))
         {
             print("lele");
@@ -47,19 +39,17 @@ public class OtherManager : MonoBehaviour {
 
     void Die()
     {
-        //die animation etx
+        //destroys the parent object (the empty transform in the scene) then disables this object
         Despawn();
         GameObject parent = transform.parent.gameObject;
         transform.parent = null;
         Destroy(parent);
-        print("3");
-
-
     }
 
     public void Despawn()
     {
-        print("DEDEDEED");
+        //disables object to be pooled again
+        print("DESPAWNED");
         gameObject.SetActive(false);
     }
 }

@@ -5,19 +5,14 @@ using UnityEngine;
 public class PlayerFiringManager : MonoBehaviour {
 
     public Transform firingPosition;
+    public Transform parent;
 
-
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
 	void Update () {
 		if (Input.GetButtonDown("Jump"))
         {
             print("Fire");
-            PoolingManager.instance.GetCherry(firingPosition.position, transform, CherryManager.PLAYERTAG);
+            //spawns cherry at given location and says player fired
+            PoolingManager.instance.GetCherry(firingPosition.position, parent, CherryManager.PLAYERTAG);
         }
         
 	}

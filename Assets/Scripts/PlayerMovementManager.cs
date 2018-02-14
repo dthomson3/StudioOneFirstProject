@@ -12,16 +12,17 @@ public class PlayerMovementManager : MonoBehaviour {
     public Bounds AABBsize;
     Vector3 offset;
 
-	// Use this for initialization
 	void Start () {
+        
         rb = GetComponent<Rigidbody>();
+        //gets the initial offset for player vs cam
         offset = transform.parent.position - transform.position;
     }
-
-    // Update is called once per frame
     void Update () {
+        //sets the bounds to the autoscroll GO with the original position kept in mind
         AABBsize.center = transform.parent.position - offset ;
 
+        //moves/jumps
         Move();
         if (Input.GetAxis("Vertical") > 0)
         {
@@ -32,6 +33,7 @@ public class PlayerMovementManager : MonoBehaviour {
 
     void Jump()
     {
+        //starts jump, and disables the ability to jump in mid air
         if (hasJumped != true)
         {
             rb.velocity = Vector3.up * playerJumpSpeed;
@@ -41,6 +43,7 @@ public class PlayerMovementManager : MonoBehaviour {
 
     void JumpPartTwo()
     {
+        //handles jump if the player is in midair, and falls nicely
         if (rb.velocity.y < 0)
         {
             rb.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
@@ -49,6 +52,7 @@ public class PlayerMovementManager : MonoBehaviour {
 
     void Move()
     {
+        //moves player, so long as they're in the bounds
         float inputX = Input.GetAxis("Horizontal");
         transform.position += Vector3.right * inputX * Time.deltaTime * playerMoveSpeed;
         if (!AABBsize.Contains(transform.position))
@@ -57,13 +61,9 @@ public class PlayerMovementManager : MonoBehaviour {
         }
     }
 
-    private void OnDrawGizmos()
-    {
-        
-    }
-
     private void OnCollisionEnter(Collision collision)
     {
+        //enables jump on collision with floor
         if (collision.collider.CompareTag("Floor"))
         {
             hasJumped = false;

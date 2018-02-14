@@ -16,20 +16,16 @@ public class CherryManager : MonoBehaviour {
     public static string OTHERBULLETLAYER = "OtherBullet";
 
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
 	void Update () {
         Move();
 	}
     
     public void Initialize(string _itemName)
     {
+        //Initializes object based off whether player or enemy shot
         if (_itemName == PLAYERTAG)
         {
+            //player shot, sets tag, layer and movedir accordingly
             transform.tag = PLAYERBULLETTAG;
             gameObject.layer = LayerMask.NameToLayer(PLAYERBULLETLAYER);
             moveDirection = Vector3.forward;
@@ -38,16 +34,19 @@ public class CherryManager : MonoBehaviour {
         }
         else if(_itemName == OTHERTAG)
         {
+            //OtherHuman shot, sets tag, layer and movedir accordingly
             transform.tag = OTHERBULLETTAG;
             gameObject.layer = LayerMask.NameToLayer(OTHERBULLETLAYER);
             moveDirection = Vector3.back;
             isPlayerBullet = false;
         }
+        //starts the countdown to despawn the object
         StartCoroutine(Despawn());
     }
 
     public void Move()
     {
+        //moves in the fired direction
         transform.position += bulletSpeed * moveDirection * Time.deltaTime;
     }
 
@@ -58,6 +57,7 @@ public class CherryManager : MonoBehaviour {
 
     public IEnumerator Despawn()
     {
+        //disables object after delay to be pooled again
         yield return new WaitForSeconds(bulletLifeTime);
         gameObject.SetActive(false);
     }

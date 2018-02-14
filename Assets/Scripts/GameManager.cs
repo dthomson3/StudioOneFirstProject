@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-
+    //creates singleton
+#region singleton
     public static GameManager instance;
     void Awake()
     {
@@ -17,17 +18,15 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
         }
-
     }
+    #endregion
 
     public int currentStage;
-    // Use this for initialization
     void Start()
     {
         currentStage = 1;
     }
 
-    // Update is called once per frame
     void Update()
     {
 

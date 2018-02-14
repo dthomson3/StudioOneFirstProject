@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class AutoScrollManager : MonoBehaviour {
 
+    //creates singleton
 #region singleton
     public static AutoScrollManager instance;
 
@@ -31,6 +32,7 @@ public class AutoScrollManager : MonoBehaviour {
 
     void Scroll()
     {
+        //constantly moves object and children 
         transform.position += autoScrollSpeed * Vector3.right * Time.deltaTime;
     }
 }

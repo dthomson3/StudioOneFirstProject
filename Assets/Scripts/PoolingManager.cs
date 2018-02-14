@@ -35,9 +35,9 @@ public class PoolingManager : MonoBehaviour {
     public float rocksToPool = 5;
 
 
-
-    // Use this for initialization
-    void Start() {
+    void Start()
+    {
+        //creates the set amount of cherries to be used in pooling
         for (int index = 0; index < cherriesToPool; index++)
         {
             GameObject cherry = Instantiate(cherryPrefab);
@@ -46,12 +46,15 @@ public class PoolingManager : MonoBehaviour {
             print("cherry made");
 
         }
+        //creates the set amount of OtherHumans to be used in pooling
         for (int secondIndex = 0; secondIndex < otherSpritesToPool; secondIndex++)
         {
             GameObject other = Instantiate(otherSpritePrefab);
             pooledOtherSprites.Add(other);
             other.gameObject.SetActive(false);
+            print("Other human made");
         }
+        //creates the set amount of Rocks to be used in pooling
         for (int thirdIndex = 0; thirdIndex < rocksToPool; thirdIndex++)
         {
             GameObject rock = Instantiate(rockPrefab);
@@ -61,20 +64,15 @@ public class PoolingManager : MonoBehaviour {
         }
     }
 
-    // Update is called once per frame
-    void Update() {
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            GetCherry(new Vector3(Random.Range(-100, 100), Random.Range(-100, 100), Random.Range(-100, 100)), null, CherryManager.OTHERTAG);
-        }
-    }
-
     public void GetCherry(Vector3 _pos, Transform _parent, string itemName)
     {
+        //checks for a cherry that's free
         foreach (GameObject cherry in pooledCherries)
         {
+            //if cherry isn't free, goes to next cherry
             if (cherry.activeInHierarchy == true)
                 continue;
+            //otherwise, sets the parent and position, sets object to active and Initializes it
             cherry.transform.parent = _parent;
             cherry.transform.position = _pos;
             cherry.SetActive(true);
@@ -85,6 +83,7 @@ public class PoolingManager : MonoBehaviour {
 
     public void GetRock(Transform _parent)
     {
+        //does the same as what the cherry does, but based only on the parent object
         foreach (GameObject rock in pooledRocks)
         {
             if (rock.activeInHierarchy == true)
@@ -99,6 +98,7 @@ public class PoolingManager : MonoBehaviour {
 
     public void GetOther(Transform _parent)
     {
+        //does the same as rock
         foreach (GameObject other in pooledOtherSprites)
         {
             if (other.activeInHierarchy == true)
