@@ -20,8 +20,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4796782800506700}
   - component: {fileID: 212465521627961182}
-  - component: {fileID: 114303405065353648}
   - component: {fileID: 65020268092086290}
+  - component: {fileID: 114579669540095808}
+  - component: {fileID: 95165637753651064}
   m_Layer: 0
   m_Name: otherPrefab
   m_TagString: Other
@@ -36,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1394909872952554}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.285622, y: -7.017718, z: 3.2462506}
+  m_LocalPosition: {x: -5.8, y: -1.858052, z: 3.341171}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -52,9 +53,26 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.9575536, y: 2.1329484, z: 0.2}
+  m_Size: {x: 0.9575536, y: 2.1329484, z: 1}
   m_Center: {x: -0.10923684, y: 0.17920566, z: 0}
---- !u!114 &114303405065353648
+--- !u!95 &95165637753651064
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1394909872952554}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 680f93186c9053a42b2ae2bd06ef5224, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114579669540095808
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -62,9 +80,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1394909872952554}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 141c3430f9fc3e0459eb819ffb381db1, type: 3}
+  m_Script: {fileID: 11500000, guid: 3efb69963989e7947a8c0100f0925276, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  State: 0
 --- !u!212 &212465521627961182
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -74,7 +93,6 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -90,7 +108,6 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5

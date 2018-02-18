@@ -6,6 +6,7 @@ public class SpawnerManager : MonoBehaviour {
 
     Camera cam;
     public float distanceFromCam;
+    public float otherMoveDist;
     public Transform[] othersToSpawn;
     public Transform[] rocksToSpawn;
     public Transform[] holesToSpawn;
@@ -40,7 +41,7 @@ public class SpawnerManager : MonoBehaviour {
         }
 
         //does the exact same as above but for otherHumans
-        foreach(Transform other in othersToSpawn)
+        foreach (Transform other in othersToSpawn)
         {
             if (other == null)
             {
@@ -48,13 +49,18 @@ public class SpawnerManager : MonoBehaviour {
             }
 
             float dist = other.position.x - cam.transform.position.x;
-            if (dist <= distanceFromCam && dist >= -distanceFromCam && other.GetComponentInChildren<OtherManager>() == null)
+            if (dist <= distanceFromCam && dist >= -distanceFromCam && other.GetComponentInChildren<Other>() == null)
             {
                 PoolingManager.instance.GetOther(other);
             }
-            else if (dist <= -distanceFromCam && other.GetComponentInChildren<OtherManager>() != null)
+            else if (dist <= otherMoveDist && other.GetComponentInChildren<Other>() != null && other.GetComponentInChildren<Other>().State == Other.States.idle)
             {
-                other.GetComponentInChildren<OtherManager>().Despawn();
+                other.GetComponentInChildren<Other>().State = Other.States.wander;
+                other.GetComponentInChildren<Other>().Animate();
+            }
+            else if (dist <= -distanceFromCam && other.GetComponentInChildren<Other>() != null)
+            {
+                other.GetComponentInChildren<Other>().Despawn();
             }
             //TODO Fix 
             //if (other.position.x <= otherOffset.position.x)

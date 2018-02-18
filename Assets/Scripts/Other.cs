@@ -2,7 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OtherManager : MonoBehaviour {
+public class Other : MonoBehaviour
+{
+    public enum States
+    {
+        idle,
+        wander
+    }
+
+    public States State;
+
+    Animator anim;
+    public bool doScroll = false;
+    float autoScrollSpeed;
 
     public void Initialize(int _currentStage)
     {
@@ -20,6 +32,12 @@ public class OtherManager : MonoBehaviour {
                 print("stage 3");
                 break;
         }
+    }
+
+    private void Start()
+    {
+        anim = GetComponent<Animator>();
+        autoScrollSpeed = AutoScrollManager.instance.autoScrollSpeed;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -51,5 +69,25 @@ public class OtherManager : MonoBehaviour {
         //disables object to be pooled again
         print("DESPAWNED");
         gameObject.SetActive(false);
+    }
+
+    public void Animate()
+    {
+        doScroll = true;
+        anim.SetBool("moving", true);
+    }
+
+    private void Update()
+    {
+        if (doScroll == true)
+        {
+            Scroll();
+        }
+    }
+
+    void Scroll()
+    {
+        //constantly moves object and children 
+        transform.parent.position += autoScrollSpeed * Vector3.right * Time.deltaTime;
     }
 }

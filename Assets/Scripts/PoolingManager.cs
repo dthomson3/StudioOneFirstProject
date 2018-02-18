@@ -106,7 +106,7 @@ public class PoolingManager : MonoBehaviour {
             other.transform.position = _parent.position;
             other.transform.parent = _parent;
             other.SetActive(true);
-            other.GetComponent<OtherManager>().Initialize(GameManager.instance.currentStage);
+            other.GetComponent<Other>().Initialize(GameManager.instance.currentStage);
             break;
         }
     }

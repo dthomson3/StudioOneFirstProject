@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CherryManager : MonoBehaviour {
+public class CherryManager : MonoBehaviour
+{
 
     public bool isPlayerBullet;
     public float bulletSpeed;
@@ -16,10 +17,11 @@ public class CherryManager : MonoBehaviour {
     public static string OTHERBULLETLAYER = "OtherBullet";
 
 
-	void Update () {
+    void Update()
+    {
         Move();
-	}
-    
+    }
+
     public void Initialize(string _itemName)
     {
         //Initializes object based off whether player or enemy shot
@@ -30,9 +32,9 @@ public class CherryManager : MonoBehaviour {
             gameObject.layer = LayerMask.NameToLayer(PLAYERBULLETLAYER);
             moveDirection = Vector3.forward;
             isPlayerBullet = true;
-            
+
         }
-        else if(_itemName == OTHERTAG)
+        else if (_itemName == OTHERTAG)
         {
             //OtherHuman shot, sets tag, layer and movedir accordingly
             transform.tag = OTHERBULLETTAG;
@@ -60,5 +62,10 @@ public class CherryManager : MonoBehaviour {
         //disables object after delay to be pooled again
         yield return new WaitForSeconds(bulletLifeTime);
         gameObject.SetActive(false);
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        //checks for collision against bullets, if there is a collision, it tells itself to die
+        print("COLLIDED WITH: " + gameObject.name);
     }
 }
