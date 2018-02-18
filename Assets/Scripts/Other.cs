@@ -12,24 +12,26 @@ public class Other : MonoBehaviour
 
     public States State;
 
+    public Sprite[] sprites;
     Animator anim;
-    public bool doScroll = false;
     float autoScrollSpeed;
+    bool hasFired;
+    public float otherFireDelayMin;
+    public float otherFireDelayMax;
 
     public void Initialize(int _currentStage)
     {
         //switches sprite based on the current stage
-        print("initialized Other");
         switch (_currentStage)
         {
-            case 1:
-                print("stage 1");
+            case 1:   
+                GetComponent<SpriteRenderer>().sprite = sprites[0];
                 break;
             case 2:
-                print("stage 2");
+                GetComponent<SpriteRenderer>().sprite = sprites[1];
                 break;
             case 3:
-                print("stage 3");
+                GetComponent<SpriteRenderer>().sprite = sprites[2];
                 break;
         }
     }
@@ -40,17 +42,11 @@ public class Other : MonoBehaviour
         autoScrollSpeed = AutoScrollManager.instance.autoScrollSpeed;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
         //checks for collision against bullets, if there is a collision, it tells itself to die
-        print("COLLIDED WITH: " + gameObject.name);
-        if (collision.transform.CompareTag("PlayerBullet"))
+        if (other.CompareTag(CherryManager.PLAYERBULLETTAG))
         {
-            print("lele");
-        }
-        if (collision.collider.CompareTag(CherryManager.PLAYERBULLETTAG))
-        {
-            print("ye");
             Die();
         }
     }
@@ -73,15 +69,26 @@ public class Other : MonoBehaviour
 
     public void Animate()
     {
-        doScroll = true;
         anim.SetBool("moving", true);
     }
 
     private void Update()
     {
-        if (doScroll == true)
+        if (State == States.wander)
         {
             Scroll();
+            StartCoroutine(Fire());
+        }
+    }
+
+    IEnumerator Fire()
+    {
+        if (hasFired == false)
+        {
+            hasFired = true;
+            PoolingManager.instance.GetCherry(transform.position, AutoScrollManager.instance.transform, CherryManager.OTHERTAG);
+            yield return new WaitForSeconds(Random.Range(otherFireDelayMin, otherFireDelayMax));
+            hasFired = false;
         }
     }
 

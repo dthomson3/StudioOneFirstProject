@@ -27,8 +27,29 @@ public class GameManager : MonoBehaviour
         currentStage = 1;
     }
 
+#region events
+    private void OnEnable()
+    {
+        GlobalEventManager.ChangeStage.AddListener(ChangeStage);
+    }
+
+    private void OnDisable()
+    {
+        GlobalEventManager.ChangeStage.RemoveListener(ChangeStage);
+    }
+#endregion
+
     void Update()
     {
 
+    }
+
+    void ChangeStage(ChangeStage stage)
+    {
+        print("STAGE CHANGED GAME MANAGER");
+        if (currentStage > 3)
+        {
+            currentStage++;
+        }
     }
 }

@@ -4,32 +4,31 @@ using UnityEngine;
 
 public class RockManager : MonoBehaviour {
 
-    public Sprite stageOneSprite;
-    public Sprite stageTwoSprite;
-    public Sprite stageThreeSprite;
+    public Sprite[] sprites;
+    public Vector3 rayOrigin;
+    public float checkRaycastLength;
 
     void Start () {
 		
 	}
 
 	void Update () {
-		
+        CheckForPlayer();
 	}
 
     public void Initialize(int _currentStage)
     {
         //changes sprite based off currentStage
-        print("Initialized");
         switch (_currentStage)
         {
             case 1:
-                print("stage 1");
+                GetComponent<SpriteRenderer>().sprite = sprites[0];
                 break;
             case 2:
-                print("stage 2");
+                GetComponent<SpriteRenderer>().sprite = sprites[1];
                 break;
             case 3:
-                print("stage 3");
+                GetComponent<SpriteRenderer>().sprite = sprites[2];
                 break;
         }
     }
@@ -38,5 +37,19 @@ public class RockManager : MonoBehaviour {
     {
         //disables object to be pooled again
         gameObject.SetActive(false);
+    }
+
+    void CheckForPlayer()
+    {
+        //checks if the player has jumped over the edge
+        RaycastHit hit;
+        if (Physics.Raycast(rayOrigin,transform.up, out hit, checkRaycastLength))
+        {
+            print("hot");
+            if (hit.transform.CompareTag(CherryManager.PLAYERTAG))
+            {
+                print("Cleared Jump!");
+            }
+        }
     }
 }
