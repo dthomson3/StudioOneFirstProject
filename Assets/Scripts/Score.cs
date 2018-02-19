@@ -8,7 +8,7 @@ public class Score : MonoBehaviour {
     public static Score instance;
     public float currentScore;
     public float amountToIncrease = 100;
-    public Text scoreText;
+    Text scoreText;
 
     private void Awake()
     {
@@ -20,7 +20,18 @@ public class Score : MonoBehaviour {
         else
         {
             instance = this;
+            DontDestroyOnLoad(gameObject);
         }
+    }
+
+    private void Start()
+    {
+        scoreText = GetComponent<Text>();
+    }
+
+    public void ResetScore()
+    {
+        currentScore = 0;
     }
 
     public void IncreaseScore()
