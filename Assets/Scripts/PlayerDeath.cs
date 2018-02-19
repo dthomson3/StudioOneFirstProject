@@ -9,7 +9,6 @@ public class PlayerDeath : MonoBehaviour {
     {
         print("PLAYER DIED");
         SceneManager.LoadScene(0);
-        Score.instance.ResetScore();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -23,7 +22,7 @@ public class PlayerDeath : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-		
+        Score.instance.ResetScore();
 	}
 	
 	// Update is called once per frame

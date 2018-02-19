@@ -8,14 +8,14 @@ public class Score : MonoBehaviour {
     public static Score instance;
     public float currentScore;
     public float amountToIncrease = 100;
-    Text scoreText;
+    public Text scoreText;
 
     private void Awake()
     {
         if (instance != null)
         {
-            DestroyImmediate(this);
             Debug.LogError("TWO SCORE IN SCENE. SECOND SCORE GAMEOBJECT: " + gameObject.name);
+            DestroyImmediate(gameObject);
         }
         else
         {
@@ -24,14 +24,15 @@ public class Score : MonoBehaviour {
         }
     }
 
-    private void Start()
-    {
-        scoreText = GetComponent<Text>();
-    }
+    //private void Start()
+    //{
+    //    scoreText = GetComponent<Text>();
+    //}
 
     public void ResetScore()
     {
         currentScore = 0;
+        scoreText.text = "";
     }
 
     public void IncreaseScore()
