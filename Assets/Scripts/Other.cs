@@ -42,6 +42,11 @@ public class Other : MonoBehaviour
         autoScrollSpeed = AutoScrollManager.instance.autoScrollSpeed;
     }
 
+    private void OnEnable()
+    {
+        State = States.idle;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         //checks for collision against bullets, if there is a collision, it tells itself to die
