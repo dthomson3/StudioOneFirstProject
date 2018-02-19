@@ -4,6 +4,21 @@ using UnityEngine;
 
 public class PlayerMovementManager : MonoBehaviour {
 
+    public static PlayerMovementManager instance;
+
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            DestroyImmediate(this);
+            Debug.LogError("MULTIPLE PLAYERS IN SCENE: gameobject is " + gameObject.name);
+        }
+        else
+        {
+            instance = this;
+        }
+    }
+
     public float playerMoveSpeed;
     public float playerJumpSpeed;
     public float fallMultiplier;

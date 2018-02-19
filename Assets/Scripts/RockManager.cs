@@ -5,11 +5,11 @@ using UnityEngine;
 public class RockManager : MonoBehaviour {
 
     public Sprite[] sprites;
-    public Vector3 rayOrigin;
-    public float checkRaycastLength;
+    public float distanceToSpriteEdge;
+    bool scored = false;
 
     void Start () {
-		
+        scored = false;
 	}
 
 	void Update () {
@@ -41,15 +41,10 @@ public class RockManager : MonoBehaviour {
 
     void CheckForPlayer()
     {
-        //checks if the player has jumped over the edge
-        RaycastHit hit;
-        if (Physics.Raycast(rayOrigin,transform.up, out hit, checkRaycastLength))
+        if (scored == false && PlayerMovementManager.instance.transform.position.x > transform.position.x + distanceToSpriteEdge)
         {
-            print("hot");
-            if (hit.transform.CompareTag(CherryManager.PLAYERTAG))
-            {
-                print("Cleared Jump!");
-            }
+            print("add score");
+            scored = true;
         }
     }
 }

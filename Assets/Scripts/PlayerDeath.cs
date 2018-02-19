@@ -1,17 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerDeath : MonoBehaviour {
 
     public void Die()
     {
         print("PLAYER DIED");
+        Destroy(gameObject);
+        SceneManager.LoadScene(0);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Rock"))
+        print("COLLIDED WITH" + other.name);
+        if (other.CompareTag("Rock") || other.CompareTag(CherryManager.OTHERBULLETTAG))
         {
             Die();
         }
