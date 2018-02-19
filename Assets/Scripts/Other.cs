@@ -54,6 +54,7 @@ public class Other : MonoBehaviour
     void Die()
     {
         //destroys the parent object (the empty transform in the scene) then disables this object
+        Score.instance.IncreaseScore();
         Despawn();
         GameObject parent = transform.parent.gameObject;
         transform.parent = null;

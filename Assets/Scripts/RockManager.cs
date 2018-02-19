@@ -43,7 +43,7 @@ public class RockManager : MonoBehaviour {
     {
         if (scored == false && PlayerMovementManager.instance.transform.position.x > transform.position.x + distanceToSpriteEdge)
         {
-            print("add score");
+            Score.instance.IncreaseScore();
             scored = true;
         }
     }

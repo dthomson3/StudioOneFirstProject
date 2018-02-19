@@ -8,7 +8,6 @@ public class PlayerDeath : MonoBehaviour {
     public void Die()
     {
         print("PLAYER DIED");
-        Destroy(gameObject);
         SceneManager.LoadScene(0);
     }
 
